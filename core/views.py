@@ -2,5 +2,5 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def pedidos(request):
-    return render(request, "core/pedidos.html")
+def reportes(request):
+    return render(request, "core/reportes.html")

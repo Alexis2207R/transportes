@@ -3,7 +3,6 @@ from django.utils.timezone import now
 
 class Categoria(models.Model):
     nombre_categoria        = models.CharField(max_length=100, verbose_name="Nombre")
-    descripcion_categoria   = models.TextField(verbose_name="Descripcion")
     creacion_categoria      = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     modificacion_categoria  = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
 
@@ -17,7 +16,6 @@ class Categoria(models.Model):
 class Material(models.Model):
     nombre_material         = models.CharField(max_length=200, verbose_name="Nombre")
     categoria_material      = models.ForeignKey(Categoria, on_delete=models.CASCADE, verbose_name="Categoria")
-    descripcion_material    = models.TextField(verbose_name="Descripción")
     stock_material          = models.IntegerField(verbose_name="stock")
     creacion_material       = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     modificacion_material   = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
