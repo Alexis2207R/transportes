@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
+from django.db.models.signals import post_save
 from solicitantes.models import Solicitante
 from materiales.models import Material
 
@@ -21,3 +22,13 @@ class PecosaMaterial(models.Model):
     pecosa      = models.ForeignKey(Pecosa, on_delete=models.CASCADE) 
     material    = models.ForeignKey(Material, on_delete=models.CASCADE)
     cantidad    = models.IntegerField(default=1)
+    
+    def __unicode__(self):
+        return self.pecosa
+
+def update_stock(sender, instance, **kwargs):
+        instance.material.stock_material -= instance.cantidad
+        instance.material.save()
+
+# register the signal
+post_save.connect(update_stock, sender=PecosaMaterial, dispatch_uid="update_stock_count")
