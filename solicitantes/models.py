@@ -16,9 +16,9 @@ class Area(models.Model):
 
 class Solicitante(models.Model):
     nombre_solicitante        = models.CharField(max_length=200, verbose_name="Nombre")
-    area                      = models.ForeignKey(Area, on_delete=models.CASCADE, null=True)
+    area                      = models.ForeignKey(Area, on_delete=models.CASCADE)
     sexo_solicitante          = models.CharField(max_length=1, choices=sexos, default='M', verbose_name="Sexo")
-    telefono_solicitante      = models.CharField(max_length=13, verbose_name="telefono", null=True)
+    telefono_solicitante      = models.CharField(max_length=13, verbose_name="telefono")
     creacion_solicitante      = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     modificacion_solicitante  = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
 
