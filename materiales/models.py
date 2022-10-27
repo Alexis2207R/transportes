@@ -32,7 +32,7 @@ class Material(models.Model):
     categoria_material      = models.ForeignKey(Categoria, on_delete=models.CASCADE, verbose_name="Categoria")
     unidad_material         = models.ForeignKey(Unidad, on_delete=models.CASCADE, verbose_name="Unidad", null=True)
     ubicacion_material      = models.CharField(max_length=200, verbose_name="Ubicación")
-    stock_material          = models.IntegerField(verbose_name="stock")
+    stock_material          = models.IntegerField(default=0, verbose_name="Stock")
     marca                   = models.CharField(max_length=200, verbose_name="Marca", default="Sin marca")
     precio_unitario         = models.DecimalField(max_digits=6, decimal_places=3, verbose_name="Precio unitario")
     creacion_material       = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
@@ -43,4 +43,5 @@ class Material(models.Model):
         verbose_name_plural = "Materiales"
 
     def __str__(self):
-        	return self.codigo_material
+        texto_material  = "{1} | {0}"
+        return texto_material.format(self.codigo_material, self.nombre_material)

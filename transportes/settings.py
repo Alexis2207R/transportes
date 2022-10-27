@@ -57,7 +57,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "DRTC - SM",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "img/logo.png",
+    "site_logo": "img/favicon.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
     "login_logo": "img/login.png",
@@ -68,16 +68,27 @@ JAZZMIN_SETTINGS = {
     # Welcome text on the login screen
     "welcome_sign": "Bienvenido, inicie sesion",
 
-    #############
-    # Side Menu #
-    #############
+    # Copyright en el pie de página
+     "copyright": "Ministerio de transportes",
 
-    # Whether to display the side menu
-    "show_sidebar": True,
-
-    # Whether to aut expand the menu
-    "navigation_expanded": True,
+    # for the full list of 5.13.0 free icon classes
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "materiales.categoria": "fas fa-calendar",
+        "materiales.material": "fas fa-book",
+        "materiales.unidad": "fas fa-th",
+        "pecosas.entrada": "fas fa-book-reader",
+        "pecosas.merma": "fas fa-box-open",
+        "pecosas.pecosa": "fas fa-book",
+        "solicitantes.area": "fas fa-table",
+        "solicitantes.solicitante": "fas fa-user",
+    },
+    
 }
+
+JAZZMIN_SETTINGS["show_ui_builder"] = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

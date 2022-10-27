@@ -7,7 +7,7 @@ from materiales.models import Material
 ####### Pecosa #######
 
 class Pecosa(models.Model):
-    codigo_pecosa        = models.CharField(max_length=50, verbose_name='CTA contable')
+    codigo_pecosa        = models.CharField(max_length=50, verbose_name='CTA contable', null=True, blank=True)
     matpecosa            = models.ManyToManyField(Material, through="PecosaMaterial")
     solicitante          = models.ForeignKey(Solicitante, on_delete=models.CASCADE)
     descripcion_pecosa   = models.TextField(verbose_name="Justificación")
@@ -20,11 +20,12 @@ class Pecosa(models.Model):
 	  
     def __str__(self):
         	return self.codigo_pecosa
+            
 
 class PecosaMaterial(models.Model):
     pecosa      = models.ForeignKey(Pecosa, on_delete=models.CASCADE) 
     material    = models.ForeignKey(Material, on_delete=models.CASCADE)
-    cantidad    = models.IntegerField(default=1)
+    cantidad    = models.IntegerField(verbose_name="Cantidad")
     
     def __unicode__(self):
         return self.pecosa
@@ -54,7 +55,7 @@ class Entrada(models.Model):
 class EntradaMaterial(models.Model):
     entrada             = models.ForeignKey(Entrada, on_delete=models.CASCADE) 
     material            = models.ForeignKey(Material, on_delete=models.CASCADE)
-    cantidad_entrada    = models.IntegerField(default=1)
+    cantidad_entrada    = models.IntegerField(verbose_name="Cantidad")
     
     def __unicode__(self):
         return self.entrada
@@ -85,7 +86,7 @@ class Merma(models.Model):
 class MermaMaterial(models.Model):
     merma           = models.ForeignKey(Merma, on_delete=models.CASCADE) 
     material        = models.ForeignKey(Material, on_delete=models.CASCADE)
-    cantidad_merma  = models.IntegerField(default=1)
+    cantidad_merma  = models.IntegerField(verbose_name="Cantidad")
     
     def __unicode__(self):
         return self.merma
