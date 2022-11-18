@@ -3,6 +3,7 @@ from django.utils.timezone import now
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.db.models.signals import post_save
+from django.db.models.signals import m2m_changed
 from django.db.models import Sum
 from solicitantes.models import Solicitante
 from materiales.models import Material
@@ -30,6 +31,15 @@ def calcular_precio_total_pecosa(sender, instance, **kwargs):
     pecosa = instance.id
     obj = PecosaMaterial.objects.filter(pecosa_id = pecosa).aggregate(Sum('precio_total_material'))
     instance.precio_total_pecosa = obj['precio_total_material__sum']
+
+
+# def pecosa_precio(sender, instance, **kwargs):
+#     if kwargs['action'] == "pre_add" and kwargs["model"] == Pecosa:
+#         pecosa = instance.id
+#         obj = PecosaMaterial.objects.filter(pecosa_id = pecosa).aggregate(Sum('precio_total_material'))
+#         instance.precio_total_pecosa = obj['precio_total_material__sum']
+
+# m2m_changed.connect( pecosa_precio, sender= Pecosa.matpecosa.through )
 
     
 

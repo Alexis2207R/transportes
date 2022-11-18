@@ -30,13 +30,13 @@ class Material(models.Model):
     nombre_material         = models.CharField(max_length=200, verbose_name="Nombre", null=True)
     codigo_material         = models.CharField(max_length=50, verbose_name="Código de Repuesto")
     categoria_material      = models.ForeignKey(Categoria, on_delete=models.CASCADE, verbose_name="Categoria")
-    unidad_material         = models.ForeignKey(Unidad, on_delete=models.CASCADE, verbose_name="Unidad", null=True)
+    unidad_material         = models.ForeignKey(Unidad, on_delete=models.CASCADE, verbose_name="Unidad", null=True, blank=True)
     ubicacion_material      = models.CharField(max_length=200, verbose_name="Ubicación")
     stock_material          = models.IntegerField(default=0, verbose_name="Stock")
     marca                   = models.CharField(max_length=200, verbose_name="Marca", default="Sin marca")
-    precio_unitario         = models.DecimalField(max_digits=6, decimal_places=3, verbose_name="Precio unitario")
-    creacion_material       = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
-    modificacion_material   = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
+    precio_unitario         = models.DecimalField(max_digits=12, decimal_places=6, verbose_name="Precio unitario")
+    creacion_material       = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación", null=True, blank=True)
+    modificacion_material   = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación", null=True, blank=True)
 
     class Meta:
         verbose_name = "Material"
