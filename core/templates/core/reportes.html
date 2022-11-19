@@ -2,70 +2,55 @@
 {% load static%}
 
 {% block content %}
-<div class="container-scroller">
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-        <!-- partial:../../partials/_navbar.html -->
-        <nav class="navbar p-0 fixed-top d-flex flex-row">
-            <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo-mini" href="../../index.html"><img
-                        src="../../assets/images/logo-mini.svg" alt="logo" /></a>
-            </div>
-        </nav>
-        <!-- partial -->
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div class="page-header">
-                    <nav aria-label="breadcrumb">
-                        <a class="btn btn-danger" href="/admin" role="button"><h5>Iniciar Sesion</h5></a>
-                    </nav>
-                  </div>
-                <div class="page-header">
-                    <h3 class="page-title"> REPORTE DE MATERIALES </h3>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th class="card-description"> Código </th>
-                                                <th class="card-description"> Nombre </th>
-                                                <th class="card-description"> Categoria </th>
-                                                <th class="card-description"> Unidad </th>
-                                                <th class="card-description"> Ubicacion </th>
-                                                <th class="card-description"> Stock </th>
-                                                <th class="card-description"> Precio </th>
-                                                <th class="card-description"> Fecha </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td> 1 </td>
-                                                <td> Herman Beck </td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                                <td> $ 77.99 </td>
-                                                <td> May 15, 2015 </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><a href="/admin"> Eres un administrador? </a></h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th> Código </th>
+                  <th> Nombre </th>
+                  <th> Categoria </th>
+                  <th> Unidad </th>
+                  <th> Ubicacion </th>
+                  <th> Stock </th>
+                  <th> Precio </th>
+                  <th> Fecha </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for material in materiales %}
+                <tr>
+                  <td>{{ material.codigo_material }}</td>
+                  <td>{{ material.nombre_material }}</td>
+                  <td>{{ material.categoria_material }}</td>
+                  <td>{{ material.unidad_material }}</td>
+                  <td>{{ material.ubicacion_material }}</td>
+                  <td>{{ material.stock_material }}</td>
+                  <td>{{ material.precio_unitario }}</td>
+                  <td>{{ material.creacion_material|date:"d/m/y" }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
         </div>
-        <!-- main-panel ends -->
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
     </div>
-    <!-- page-body-wrapper ends -->
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
 </div>
+<!-- ./wrapper -->
+
 {% endblock content %}

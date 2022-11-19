@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
-# Create your views here.
+from materiales.models import Material
 
 def reportes(request):
-    return render(request, "core/reportes.html")
+    materiales = Material.objects.all()
+    return render(request, "core/reportes.html", {'materiales':materiales})
