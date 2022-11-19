@@ -12,6 +12,10 @@ class PecosaResource(resources.ModelResource):
 class MaterialResource(resources.ModelResource):
     class Meta:
         model = Material
+        widgets = {
+                'creacion_material': {'format': '%d/%m/%Y'},
+                'modificacion_material': {'format': '%d/%m/%Y'},
+                }
 
 ######################################################################
 
@@ -29,7 +33,7 @@ class PecosaMaterialInline(admin.TabularInline):
     model   = PecosaMaterial
     extra   = 1
     autocomplete_fields = ['material']
-    # exclude         = ('precio_total_material',)
+    exclude         = ('precio_total_material',)
 
 class MaterialAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     search_fields   = ('nombre_material', 'codigo_material')
@@ -77,7 +81,6 @@ class PecosaAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     #     return "\n".join([mp.precio_total_material for mp in obj.precio_total_material.all()])
     ordering = ('creacion_pecosa',)
     list_filter = ('creacion_pecosa',)
-
 
 admin.site.register(Pecosa, PecosaAdmin)
 admin.site.register(Merma, MermaAdmin)
