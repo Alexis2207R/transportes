@@ -43,5 +43,5 @@ class Material(models.Model):
         verbose_name_plural = "Materiales"
 
     def __str__(self):
-        texto_material  = "{1} | {0}"
-        return texto_material.format(self.codigo_material, self.nombre_material)
+        texto_material  = "{0} | {1}"
+        return texto_material.format(self.codigo_material, self.nombre_material, self.precio_unitario)

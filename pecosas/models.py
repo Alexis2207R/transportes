@@ -1,12 +1,13 @@
 from django.db import models
 from django.utils.timezone import now
+from django.utils.html import format_html
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.db.models.signals import post_save
 from django.db.models.signals import m2m_changed
 from django.db.models import Sum
 from solicitantes.models import Solicitante
-from materiales.models import Material
+from materiales.models import Material, Categoria, Unidad
 
 ####### Pecosa #######
 
@@ -14,7 +15,7 @@ class Pecosa(models.Model):
     matpecosa            = models.ManyToManyField(Material, through="PecosaMaterial")
     solicitante          = models.ForeignKey(Solicitante, on_delete=models.CASCADE)
     descripcion_pecosa   = models.TextField(verbose_name="Justificación")
-    precio_total_pecosa  = models.IntegerField(verbose_name="Precio total", null=True, blank=True)
+    precio_total_pecosa  = models.DecimalField(max_digits=12, decimal_places=6, verbose_name="Precio total pecosa", null=True, blank=True)
     creacion_pecosa      = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     modificacion_pecosa  = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
 
@@ -32,29 +33,19 @@ def calcular_precio_total_pecosa(sender, instance, **kwargs):
     obj = PecosaMaterial.objects.filter(pecosa_id = pecosa).aggregate(Sum('precio_total_material'))
     instance.precio_total_pecosa = obj['precio_total_material__sum']
 
-
-# def pecosa_precio(sender, instance, **kwargs):
-#     if kwargs['action'] == "pre_add" and kwargs["model"] == Pecosa:
-#         pecosa = instance.id
-#         obj = PecosaMaterial.objects.filter(pecosa_id = pecosa).aggregate(Sum('precio_total_material'))
-#         instance.precio_total_pecosa = obj['precio_total_material__sum']
-
-# m2m_changed.connect( pecosa_precio, sender= Pecosa.matpecosa.through )
-
-    
-
 class PecosaMaterial(models.Model):
     pecosa      = models.ForeignKey(Pecosa, on_delete=models.CASCADE) 
     material    = models.ForeignKey(Material, on_delete=models.CASCADE)
     cantidad    = models.IntegerField(verbose_name="Cantidad")
-    precio_total_material = models.IntegerField(verbose_name="Precio total del material", null=True, blank=True)
+    precio_total_material = models.DecimalField(max_digits=12, decimal_places=6, verbose_name="Precio total del material", null=True, blank=True)
     
     def __unicode__(self):
         return self.pecosa
+    
 
 def update_stock(sender, instance, **kwargs):
-        instance.material.stock_material -= instance.cantidad
-        instance.material.save()
+    instance.material.stock_material -= instance.cantidad
+    instance.material.save()
 
 # register the signal (post sinal - actualizar stock)
 post_save.connect(update_stock, sender=PecosaMaterial, dispatch_uid="update_stock_count")
