@@ -126,9 +126,6 @@ class PecosaAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_per_page   = 15
     exclude         = ('precio_total_pecosa',)
     resource_class = PecosaAdminResource
-
-    # Solucionar el problema de las busquedas
-    # search_fields = ('solicitante',)
     
     readonly_fields = ('creacion_pecosa', 'modificacion_pecosa')
     list_display = ('descripcion_pecosa', 'materiales', 'precio_unitario', 'precio_total_pecosa', 'solicitante', 'creacion_pecosa')

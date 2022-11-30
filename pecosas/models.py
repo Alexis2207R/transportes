@@ -1,13 +1,12 @@
 from django.db import models
-from django.utils.timezone import now
-from django.utils.html import format_html
-from django.dispatch import receiver
-from django.db.models.signals import pre_save
-from django.db.models.signals import post_save
-from django.db.models.signals import m2m_changed
 from django.db.models import Sum
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
+from django.utils.html import format_html
+from django.utils.timezone import now
+
+from materiales.models import Categoria, Material, Unidad
 from solicitantes.models import Solicitante
-from materiales.models import Material, Categoria, Unidad
 
 ####### Pecosa #######
 
